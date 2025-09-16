@@ -1,69 +1,85 @@
-# React + TypeScript + Vite
+# ShopEase — React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An e-commerce sample app built with React, TypeScript, Vite, Tailwind, React Router, and TanStack Query. It features product listing with pagination, product detail, a persistent cart with quantity management, and global toasts.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Product listing with search, category filter, sorting, and pagination
+- Product detail page with add-to-cart
+- Cart page with increment/decrement, remove item, and clear cart
+- Persistent cart (localStorage)
+- Debounced search input
+- Error boundaries and Suspense fallbacks for lazy routes
+- Sticky header and footer pinned to the bottom on short pages
+- Global toast notifications for add/remove/clear cart actions
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- React 19, TypeScript, Vite
+- React Router 7
+- TanStack Query 5
+- Tailwind CSS 4
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Prerequisites
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+- Node.js 18+ (recommended LTS)
+- npm 9+ (or use pnpm/yarn by adapting commands)
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Getting Started
+
+1) Install dependencies
+
+```bash
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+2) Run the development server
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run dev
 ```
+
+Then open the URL shown in the terminal (typically `http://localhost:5173`).
+
+3) Lint the project
+
+```bash
+npm run lint
+```
+
+4) Build for production
+
+```bash
+npm run build
+```
+
+5) Preview the production build
+
+```bash
+npm run preview
+```
+
+## Project Structure
+
+```
+src/
+  components/ui/       # Reusable UI primitives (button, input, pagination)
+  context/             # App providers (cart, toast)
+  layouts/             # App layout, header, footer
+  modules/             # Route-level pages (home, product, cart)
+  shared/              # ErrorBoundary, loader, etc.
+  lib/                 # Utilities and hooks (use-debounce, utils)
+  routes/              # Route configuration
+  types/               # Global types (Product, AppRoute)
+```
+
+## Environment
+
+This app fetches products from `https://fakestoreapi.com`. No environment variables are required.
+
+## Notes
+
+- The cart persists to `localStorage`.
+- ErrorBoundary provides a retry button and safe fallback.
+- Debounced search is set to 1000ms by default in `home.page.tsx`.
+
