@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 
+import Loader from "./shared/loader";
 import { routes } from "./routes/route";
 import { AppLayout } from "./layouts/app-layout";
 import { ErrorBoundary } from "./shared/error-boundary";
@@ -17,7 +18,7 @@ function App() {
           element={
             <AppLayout>
               <ErrorBoundary>
-                <Suspense>
+                <Suspense fallback={<Loader />}>
                   <route.component />
                 </Suspense>
               </ErrorBoundary>

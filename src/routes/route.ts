@@ -13,7 +13,7 @@ export const routes: AppRoute[] = [
   },
   {
     key: "product",
-    path: "/product/:id",
+    path: "/products/:id",
     component: Product,
   },
   {
