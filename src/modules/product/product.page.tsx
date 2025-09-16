@@ -1,12 +1,14 @@
 import Loader from "@/shared/loader";
 import type { Product } from "@/types";
 import { useCart } from "@/context/use-cart";
+import { useToast } from "@/context/toast-provider";
 import { useQuery } from "@tanstack/react-query";
 import { useParams, Link } from "react-router-dom";
 
 export default function ProductDetail() {
   const { id } = useParams();
   const { addToCart } = useCart();
+  const { showToast } = useToast();
 
   const { isPending, error, data } = useQuery<Product>({
     queryKey: ["product", id],
@@ -20,6 +22,7 @@ export default function ProductDetail() {
   const handleAddToCart = () => {
     if (!data) return;
     addToCart(data);
+    showToast("Added to cart");
   };
 
   if (isPending) return <Loader />;

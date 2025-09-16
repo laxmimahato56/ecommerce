@@ -1,9 +1,11 @@
 
 import { Link } from "react-router-dom";
 import { useCart } from "@/context/use-cart";
+import { useToast } from "@/context/toast-provider";
 
 export default function CartPage() {
   const { cart, removeFromCart, updateQuantity, clearCart } = useCart();
+  const { showToast } = useToast();
 
   const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
@@ -64,7 +66,10 @@ export default function CartPage() {
                 ${(item.price * item.quantity).toFixed(2)}
               </p>
               <button
-                onClick={() => removeFromCart(item.id)}
+                onClick={() => {
+                  removeFromCart(item.id);
+                  showToast("Removed from cart");
+                }}
                 className="text-red-500 hover:underline"
               >
                 Remove
@@ -82,7 +87,10 @@ export default function CartPage() {
         </div>
         <div className="mt-4 flex space-x-4">
           <button
-            onClick={clearCart}
+            onClick={() => {
+              clearCart();
+              showToast("Cart cleared");
+            }}
             className="px-4 py-2 border rounded-lg hover:bg-gray-100"
           >
             Clear Cart
